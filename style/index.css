@@ -10,6 +10,7 @@ body {
   font-size: 18px;
 }
 
+/* ################ Default ################ */
 img {
   max-width: 100%;
 }
@@ -31,6 +32,11 @@ p {
   color: hsl(0, 0%, 75%);
 }
 
+a {
+  text-decoration: none;
+}
+
+/* ################ Utility Classes ################ */
 .container {
   max-width: 1250px;
   margin-inline: auto;
@@ -38,4 +44,73 @@ p {
 
 .gray-text {
   color: hsl(0, 0%, 75%);
+}
+
+.flex {
+  display: flex;
+}
+
+.section-padding {
+  padding-inline: min(4vw, 3em);
+}
+
+.btn {
+  display: block;
+  padding-block: 0.5em;
+  border-radius: 1.5em;
+}
+
+.primary-btn {
+  background-color: cyan;
+}
+
+/* ################header################ */
+header {
+  height: 80px;
+  position: relative;
+  z-index: 9999;
+}
+header .container {
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ################nav################ */
+#toggle-button {
+  outline: 0;
+  border: 0;
+  background: none;
+  width: 35px;
+  aspect-ratio: 1;
+  background-image: url("../images/icon-hamburger.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 140% 190%;
+}
+
+#navList {
+  position: absolute;
+  top: 100%;
+  left: 5%;
+  right: 5%;
+  background-color: hsl(255, 11%, 22%);
+  border-radius: 10px;
+  padding: 1.4em;
+  flex-direction: column;
+}
+#navList li {
+  text-align: center;
+}
+#navList li:nth-child(3) {
+  border-bottom: 1px solid hsl(0, 0%, 75%);
+}
+#navList a {
+  display: block;
+  color: white;
+  padding-block: 0.8em;
+}
+
+#navList[data-visible=false] {
+  visibility: hidden;
 }/*# sourceMappingURL=index.css.map */

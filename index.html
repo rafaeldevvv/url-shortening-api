@@ -13,38 +13,51 @@
     <title>Frontend Mentor | Shortly URL shortening API Challenge</title>
   </head>
   <body>
-    <header>
-      <div class="container">
+    <header class="section-padding">
+      <div class="container flex">
         <img src="./images/logo.svg" alt="Logo" />
         <nav>
-          <button id="toggle-button"></button>
-          <ul data-visible="false">
-            <div class="links">
-              <li>
-                <a href="#"> Features </a>
-              </li>
-              <li>
-                <a href="#"> Pricing </a>
-              </li>
-              <li>
-                <a href="#"> Resources </a>
-              </li>
-            </div>
-            <div class="buttons">
-              <li>
-                <a href="#"> Login </a>
-              </li>
-              <li>
-                <a href="#" class="btn primary-btn"> Sign Up </a>
-              </li>
-            </div>
+          <button id="toggle-button">
+
+          </button>
+          <ul id="navList" data-visible="false" class="flex">
+            <li>
+              <a href="#"> Features </a>
+            </li>
+            <li>
+              <a href="#"> Pricing </a>
+            </li>
+            <li>
+              <a href="#"> Resources </a>
+            </li>
+            <li>
+              <a href="#"> Login </a>
+            </li>
+            <li>
+              <a href="#" class="btn primary-btn"> Sign Up </a>
+            </li>
           </ul>
         </nav>
+
+        <script>
+          const navList = document.querySelector('#navList')
+          window.addEventListener('click', e => {
+
+            if (e.target.id === 'toggle-button') {
+              const visible = navList.getAttribute('data-visible');
+
+              navList.setAttribute('data-visible', visible === 'false' ? true : false);
+            } else {
+              navList.setAttribute('data-visible', false);
+            }
+
+          })
+        </script>
       </div>
     </header>
 
     <main>
-      <section id="intro">
+      <section id="intro" class="section-padding">
         <div class="container">
           <img
             src="./images/illustration-working.svg"
@@ -61,7 +74,7 @@
         </div>
       </section>
 
-      <section id="shorten-link">
+      <section id="shorten-link" class="section-padding">
         <div class="container">
           <form>
             <input
@@ -75,7 +88,7 @@
         </div>
       </section>
 
-      <section id="advanced-statistics">
+      <section id="advanced-statistics" class="section-padding">
         <div class="container">
           <h2>Advanced Statistics</h2>
           <p>
@@ -169,22 +182,22 @@
         <ul class="socials">
           <li>
             <a href="#">
-              <img src="./images/icon-facebook.svg" alt="Facebook Icon">
+              <img src="./images/icon-facebook.svg" alt="Facebook Icon" />
             </a>
           </li>
           <li>
             <a href="#">
-              <img src="./images/icon-twitter.svg" alt="Twitter Icon">
+              <img src="./images/icon-twitter.svg" alt="Twitter Icon" />
             </a>
           </li>
           <li>
             <a href="#">
-              <img src="./images/icon-pinterest.svg" alt="Pinterest Icon">
+              <img src="./images/icon-pinterest.svg" alt="Pinterest Icon" />
             </a>
           </li>
           <li>
             <a href="#">
-              <img src="./images/icon-instagram.svg" alt="Instagram Icon">
+              <img src="./images/icon-instagram.svg" alt="Instagram Icon" />
             </a>
           </li>
         </ul>
