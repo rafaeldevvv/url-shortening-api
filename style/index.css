@@ -5,16 +5,16 @@
   box-sizing: border-box;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   font-family: "Poppins", Helvetica, Arial, sans-serif;
   font-size: 18px;
 }
 
 /* ################ Default ################ */
-img {
-  max-width: 100%;
-}
-
 ul {
   list-style: none;
 }
@@ -26,10 +26,12 @@ h4,
 h5,
 h6 {
   color: hsl(260, 8%, 14%);
+  line-height: 1.2;
 }
 
 p {
-  color: hsl(0, 0%, 75%);
+  color: hsl(0, 0%, 60%);
+  line-height: 1.7;
 }
 
 a {
@@ -51,17 +53,26 @@ a {
 }
 
 .section-padding {
-  padding-inline: min(4vw, 3em);
+  padding-inline: min(5vw, 3em);
 }
 
 .btn {
-  display: block;
-  padding-block: 0.5em;
+  display: inline-block;
   border-radius: 1.5em;
+  padding-block: 0.7em;
+  padding-inline: 2em;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1em;
 }
 
 .primary-btn {
   background-color: cyan;
+  color: white;
+}
+
+.primary-btn:hover {
+  background-color: hsl(180, 100%, 70%);
 }
 
 /* ################header################ */
@@ -96,21 +107,167 @@ header .container {
   right: 5%;
   background-color: hsl(255, 11%, 22%);
   border-radius: 10px;
-  padding: 1.4em;
+  padding-block: 2em;
+  padding-inline: 1.4em;
   flex-direction: column;
+  opacity: 1;
+  transition-property: opacity;
+  transition-duration: 0.3s;
 }
 #navList li {
   text-align: center;
 }
-#navList li:nth-child(3) {
-  border-bottom: 1px solid hsl(0, 0%, 75%);
+#navList .filler {
+  border-top: 1px solid hsla(0, 0%, 100%, 0.2);
+  margin-block: 1em;
 }
 #navList a {
   display: block;
   color: white;
   padding-block: 0.8em;
+  font-weight: 700;
+  font-size: 1em;
+}
+#navList .btn {
+  padding: 0.5em;
 }
 
 #navList[data-visible=false] {
-  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ################ main, footer ################ */
+main, footer {
+  text-align: center;
+}
+
+/* ################ intro ################ */
+#intro .content > * {
+  margin-top: 1.5em;
+}
+#intro h1 {
+  font-size: 2em;
+}
+#intro img {
+  max-width: 150%;
+}
+
+/* ################ advanced statistics ################ */
+#advanced-statistics {
+  padding-block: 4em;
+  background-color: hsl(0, 0%, 95%);
+}
+#advanced-statistics h2 {
+  margin-bottom: 1em;
+}
+
+#cards {
+  display: flex;
+  flex-direction: column;
+  gap: 4em;
+  position: relative;
+  padding-block: 4em;
+  background-image: url("../images/");
+}
+#cards .line {
+  position: absolute;
+  height: calc(100% - 8em);
+  width: 8px;
+  left: calc(50% - 4px);
+  background-color: cyan;
+}
+
+.card {
+  background: white;
+  padding: 1.5em;
+  -webkit-padding-before: 4em;
+          padding-block-start: 4em;
+  position: relative;
+  border-radius: 0.5em;
+}
+.card .icon {
+  position: absolute;
+  left: 50%;
+  top: 0%;
+  transform: translate(-50%, -50%);
+  background-color: hsl(260, 8%, 14%);
+  width: 80px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.card .icon img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.card h3 {
+  margin-bottom: 1em;
+}
+
+/* ################ boost section ################ */
+#boost {
+  background-color: hsl(255, 11%, 22%);
+  background-image: url("../images/bg-boost-mobile.svg");
+  background-size: cover;
+  padding-block: 5em;
+  padding-inline: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+}
+#boost h2 {
+  color: white;
+}
+
+/* ################ footer ################ */
+footer {
+  background-color: hsl(0, 0%, 10%);
+  color: white;
+  padding-block: 2em;
+}
+footer .logo img {
+  filter: brightness(10);
+}
+footer .lists {
+  margin-block: 2em;
+  flex-direction: column;
+  gap: 2em;
+}
+footer .socials {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+footer .socials a:hover img {
+  filter: sepia() saturate(100000%) hue-rotate(90deg);
+}
+footer a:hover {
+  color: cyan;
+}
+
+.footer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+}
+.footer-list li:first-child {
+  font-weight: 700;
+  margin-bottom: 0.7em;
+}
+.footer-list li {
+  font-size: 0.8em;
+}
+.footer-list a {
+  color: hsl(0, 0%, 60%);
+}
+
+.attribution {
+  margin-top: 2em;
+  font-size: 0.8em;
+}
+.attribution a {
+  color: cyan;
 }/*# sourceMappingURL=index.css.map */

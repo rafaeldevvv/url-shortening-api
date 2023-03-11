@@ -30,6 +30,7 @@
             <li>
               <a href="#"> Resources </a>
             </li>
+            <div class="filler"></div>
             <li>
               <a href="#"> Login </a>
             </li>
@@ -74,19 +75,7 @@
         </div>
       </section>
 
-      <section id="shorten-link" class="section-padding">
-        <div class="container">
-          <form>
-            <input
-              type="url"
-              name="url"
-              id="inUrl"
-              placeholder="Shorten a link here..."
-            />
-            <button type="submit">Shorten it</button>
-          </form>
-        </div>
-      </section>
+      <section id="shorten-link" class="section-padding"></section>
 
       <section id="advanced-statistics" class="section-padding">
         <div class="container">
@@ -95,13 +84,15 @@
             Track how your links are performing across the web with our advanced
             statistics dashboard.
           </p>
-          <div class="cards">
+          <div id="cards">
+            <div class="line"></div>
             <article class="card">
-              <img
-                src="./images/icon-brand-recognition.svg"
-                alt="Brand recognition icon"
-                class="icon"
-              />
+              <div class="icon">
+                <img
+                  src="./images/icon-brand-recognition.svg"
+                  alt="Brand recognition icon"
+                />
+              </div>
               <h3>Brand Recognition</h3>
               <p>
                 Boost your brand recognition with each click. Generic links
@@ -110,11 +101,12 @@
               </p>
             </article>
             <article class="card">
-              <img
-                src="./images/icon-detailed-records.svg"
-                alt="Detail Records Icon"
-                class="icon"
-              />
+              <div class="icon">
+                <img
+                  src="./images/icon-detailed-records.svg"
+                  alt="Detail Records Icon"
+                />
+              </div>
               <h3>Detailed Records</h3>
               <p>
                 Gain insights into who is clicking your links. Knowing when and
@@ -123,11 +115,12 @@
               </p>
             </article>
             <article class="card">
-              <img
-                src="./images/icon-fully-customizable.svg"
-                alt="Fully Customizable Icon"
-                class="icon"
-              />
+              <div class="icon">
+                <img
+                  src="./images/icon-fully-customizable.svg"
+                  alt="Fully Customizable Icon"
+                />
+              </div>
               <h3>Fully Customizable</h3>
               <p>
                 Improve brand awareness and content discoverability through
@@ -139,17 +132,17 @@
       </section>
 
       <section id="boost">
-        <h2>Boost your links today</h2>
-        <a href="#" class="btn primary-btn"> Get Started </a>
+          <h2>Boost your links today</h2>
+          <a href="#" class="btn primary-btn"> Get Started </a>
       </section>
     </main>
 
-    <footer>
+    <footer class="section-padding">
       <div class="container">
         <div class="logo">
           <img src="./images/logo.svg" alt="Logo" />
         </div>
-        <div class="lists">
+        <div class="lists flex">
           <ul class="footer-list">
             <li>Features</li>
             <li>
