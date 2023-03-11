@@ -63,6 +63,9 @@ a {
 
 .btn {
   display: inline-block;
+  outline: 0;
+  border: 0;
+  background: none;
   border-radius: 1.5em;
   padding-block: 0.7em;
   padding-inline: 2em;
@@ -79,6 +82,27 @@ a {
 
 .primary-btn:hover {
   background-color: hsl(180, 66%, 70%);
+}
+
+.square-like-border {
+  border-radius: 5px;
+}
+
+.field {
+  border: 0;
+  outline: 0;
+  border-radius: 5px;
+  display: block;
+  padding-block: 0.7em;
+  width: 100%;
+}
+
+.field::-moz-placeholder {
+  color: hsl(0, 0%, 63%);
+}
+
+.field::placeholder {
+  color: hsl(0, 0%, 63%);
 }
 
 /* ################header################ */
@@ -171,6 +195,40 @@ footer {
 }
 #intro img {
   max-width: 150%;
+}
+
+/* ################ shorten-link ################ */
+#shorten .container {
+  padding: 1em;
+  border-radius: 0.5em;
+  background-color: hsl(257, 27%, 26%);
+  background-image: url("../images/bg-shorten-mobile.svg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+#shorten form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+#shorten .field, #shorten .btn {
+  padding: 1.2em;
+  border-radius: 0.5em;
+}
+#shorten .links {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding-block: 2em;
+}
+#shorten .link {
+  background-color: white;
+}
+#shorten .link > * {
+  padding: 1em;
+}
+#shorten .link .previous {
+  border-bottom: 1px solid hsl(0, 0%, 75%);
 }
 
 /* ################ advanced statistics ################ */

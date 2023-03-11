@@ -74,6 +74,9 @@ a {
 
 .btn {
   display: inline-block;
+  outline: 0;
+  border: 0;
+  background: none;
 
   border-radius: 1.5em;
   padding-block: 0.7em;
@@ -90,6 +93,21 @@ a {
 }
 .primary-btn:hover {
   background-color: hsl(180, 66%, 70%);
+}
+.square-like-border {
+  border-radius: 5px;
+}
+
+.field {
+  border: 0;
+  outline: 0;
+  border-radius: 5px;
+  display: block;
+  padding-block: .7em;
+  width: 100%;
+}
+.field::placeholder {
+  color: $gray-text;
 }
 
 /* ################header################ */
@@ -195,6 +213,49 @@ footer {
     max-width: 150%;
   }
 }
+
+/* ################ shorten-link ################ */
+#shorten {
+  .container {
+    padding: 1em;
+    border-radius: .5em;
+
+    background-color: $dark-violet;
+    background-image: url('../images/bg-shorten-mobile.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .field, .btn {
+    padding: 1.2em;
+    border-radius: .5em;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding-block: 2em;
+  }
+  .link {
+    background-color: white;
+
+    > * {
+      padding: 1em;
+    }
+
+    .previous {
+      border-bottom: 1px solid $gray;
+    }
+  }
+}
+
 
 /* ################ advanced statistics ################ */
 #features {
