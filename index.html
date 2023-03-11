@@ -17,9 +17,7 @@
       <div class="container flex">
         <img src="./images/logo.svg" alt="Logo" />
         <nav>
-          <button id="toggle-button">
-
-          </button>
+          <button id="toggle-button"></button>
           <ul id="navList" data-visible="false" class="flex">
             <li>
               <a href="#"> Features </a>
@@ -41,18 +39,19 @@
         </nav>
 
         <script>
-          const navList = document.querySelector('#navList')
-          window.addEventListener('click', e => {
+          const navList = document.querySelector("#navList");
+          window.addEventListener("click", (e) => {
+            if (e.target.id === "toggle-button") {
+              const visible = navList.getAttribute("data-visible");
 
-            if (e.target.id === 'toggle-button') {
-              const visible = navList.getAttribute('data-visible');
-
-              navList.setAttribute('data-visible', visible === 'false' ? true : false);
-            } else {
-              navList.setAttribute('data-visible', false);
+              navList.setAttribute(
+                "data-visible",
+                visible === "false" ? true : false
+              );
+            } else if (e.target.id !== navList.id) {
+              navList.setAttribute("data-visible", false);
             }
-
-          })
+          });
         </script>
       </div>
     </header>
@@ -60,10 +59,12 @@
     <main>
       <section id="intro" class="section-padding">
         <div class="container">
-          <img
-            src="./images/illustration-working.svg"
-            alt="Working illustration"
-          />
+          <div class="img-container">
+            <img
+              src="./images/illustration-working.svg"
+              alt="Working illustration"
+            />
+          </div>
           <div class="content">
             <h1>More than just shorter links</h1>
             <p>
@@ -79,11 +80,13 @@
 
       <section id="advanced-statistics" class="section-padding">
         <div class="container">
-          <h2>Advanced Statistics</h2>
-          <p>
-            Track how your links are performing across the web with our advanced
-            statistics dashboard.
-          </p>
+          <div class="top text-center">
+            <h2>Advanced Statistics</h2>
+            <p>
+              Track how your links are performing across the web with our advanced
+              statistics dashboard.
+            </p>
+          </div>
           <div id="cards">
             <div class="line"></div>
             <article class="card">
@@ -132,8 +135,8 @@
       </section>
 
       <section id="boost">
-          <h2>Boost your links today</h2>
-          <a href="#" class="btn primary-btn"> Get Started </a>
+        <h2>Boost your links today</h2>
+        <a href="#" class="btn primary-btn"> Get Started </a>
       </section>
     </main>
 
@@ -170,38 +173,36 @@
             <li><a href="#"> Careers </a></li>
             <li><a href="#"> Contact </a></li>
           </ul>
-        </div>
 
-        <ul class="socials">
-          <li>
-            <a href="#">
-              <img src="./images/icon-facebook.svg" alt="Facebook Icon" />
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="./images/icon-twitter.svg" alt="Twitter Icon" />
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="./images/icon-pinterest.svg" alt="Pinterest Icon" />
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="./images/icon-instagram.svg" alt="Instagram Icon" />
-            </a>
-          </li>
-        </ul>
+          <ul class="socials">
+            <li>
+              <a href="#">
+                <img src="./images/icon-facebook.svg" alt="Facebook Icon" />
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="./images/icon-twitter.svg" alt="Twitter Icon" />
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="./images/icon-pinterest.svg" alt="Pinterest Icon" />
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="./images/icon-instagram.svg" alt="Instagram Icon" />
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="attribution">
-        <div class="container">
           Challenge by
           <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
             >Frontend Mentor</a
           >. Coded by <a href="#">Your Name Here</a>.
-        </div>
       </div>
     </footer>
 

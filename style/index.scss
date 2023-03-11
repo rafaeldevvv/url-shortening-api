@@ -4,15 +4,17 @@ $gray: hsl(0, 0%, 75%);
 $grayish-violet: hsl(257, 7%, 63%);
 $very-dark-blue: hsl(255, 11%, 22%);
 $very-dark-violet: hsl(260, 8%, 14%);
-$gray-text: hsl(0, 0, 60%);
+$gray-text: hsl(0, 0, 63%);
+$cyan: hsl(180, 100%, 45%);
 
 * {
-  padding: 0;
-  margin: 0;
+  padding: 0px;
+  margin: 0px;
   box-sizing: border-box;
 }
 
-html,body {
+html,
+body {
   overflow-x: hidden;
 }
 body {
@@ -46,7 +48,7 @@ a {
 
 /* ################ Utility Classes ################ */
 .container {
-  max-width: 1250px;
+  max-width: 1150px;
   margin-inline: auto;
 }
 
@@ -54,19 +56,23 @@ a {
   color: $gray;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .flex {
   display: flex;
 }
 
 .section-padding {
-  padding-inline: min(5vw, 3em);
+  padding-inline: min(8vw, 3em);
 }
 
 .btn {
   display: inline-block;
 
   border-radius: 1.5em;
-  padding-block: .7em;
+  padding-block: 0.7em;
   padding-inline: 2em;
 
   text-align: center;
@@ -74,16 +80,16 @@ a {
   font-size: 1.1em;
 }
 .primary-btn {
-  background-color: cyan;
-  color: white;
+  background-color: $cyan !important;
+  color: white !important;
 }
 .primary-btn:hover {
-  background-color: hsl(180, 100%, 70%)
+  background-color: hsl(180, 100%, 70%);
 }
 
 /* ################header################ */
 header {
-  height: 80px;
+  height: 130px;
   position: relative;
   z-index: 9999;
 
@@ -111,9 +117,9 @@ header {
 
 #navList {
   position: absolute;
-  top: 100%;
-  left: 5%;
-  right: 5%;
+  top: 80%;
+  left: 7%;
+  right: 7%;
 
   background-color: $very-dark-blue;
   border-radius: 10px;
@@ -124,7 +130,7 @@ header {
 
   opacity: 1;
   transition-property: opacity;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 
   li {
     text-align: center;
@@ -144,30 +150,40 @@ header {
   }
 
   .btn {
-    padding: .5em;
+    padding: 0.5em;
   }
 }
 #navList[data-visible="false"] {
-   opacity: 0;
-   pointer-events: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ################ main, footer ################ */
-main, footer {
+main,
+footer {
   text-align: center;
 }
 
 /* ################ intro ################ */
 #intro {
+  padding-block-end: 4em;
+
   .content {
-    > * {
-      margin-top: 1.5em;
+    margin-top: 1.5em;
+
+    h1 {
+      margin-bottom: .5em;
+    }
+
+    .btn {
+      margin-top: 1.6em;
     }
   }
 
   h1 {
-    font-size: 2em;
-  }   
+    font-size: 2.3em;
+    height: min-content;
+  }
 
   img {
     max-width: 150%;
@@ -177,37 +193,45 @@ main, footer {
 /* ################ advanced statistics ################ */
 #advanced-statistics {
   padding-block: 4em;
-  background-color: hsl(0,0,95%);
+  background-color: hsl(0, 0, 95%);
+
+  .top {
+    margin-bottom: 6em;
+    p {
+      font-size: 0.85em;
+      max-width: 450px;
+      margin-inline: auto;
+    }
+  }
 
   h2 {
-    margin-bottom: 1em;
+    margin-bottom: .7em;
   }
+
 }
 #cards {
   display: flex;
   flex-direction: column;
-  gap: 4em;
+  gap: 5em;
   position: relative;
-
-  padding-block: 4em;
-  background-image: url('../images/');
 
   .line {
     position: absolute;
-    height: calc(100% - 8em);
+    height: 100%;
     width: 8px;
     left: calc(50% - 4px);
-    background-color: cyan;
+    background-color: $cyan;
   }
 }
 
 .card {
   background: white;
-  padding: 1.5em;
   padding-block-start: 4em;
-  position: relative;
-  border-radius: .5em;
+  padding-block-end: 2em;
+  padding-inline: 2em;
+  border-radius: 0.5em;
 
+  position: relative;
   .icon {
     position: absolute;
     left: 50%;
@@ -235,11 +259,10 @@ main, footer {
 /* ################ boost section ################ */
 #boost {
   background-color: $very-dark-blue;
-  background-image: url('../images/bg-boost-mobile.svg');
-  background-size: cover;
+  background-image: url("../images/bg-boost-mobile.svg");
+  background-size: 100% 100%;
 
-  padding-block: 5em;
-  padding-inline: 2em;
+  padding-block: 6em;
 
   display: flex;
   flex-direction: column;
@@ -248,14 +271,15 @@ main, footer {
 
   h2 {
     color: white;
+    font-size: 1.5em;
   }
 }
 
 /* ################ footer ################ */
 footer {
-  background-color: hsl(0,0,10%);
+  background-color: hsl(0, 0, 10%);
   color: white;
-  padding-block: 2em;
+  padding-block: 4em;
 
   .logo {
     img {
@@ -269,46 +293,202 @@ footer {
     gap: 2em;
   }
 
-  .socials{
+  .socials {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 1em;
 
     a:hover {
       img {
-        filter: sepia() saturate(100000%) hue-rotate(90deg)
+        filter: sepia() saturate(100000%) hue-rotate(90deg);
       }
     }
-  }
-
-  a:hover {
-    color: cyan;
   }
 }
 
 .footer-list {
   display: flex;
   flex-direction: column;
-  gap: .6em;
+  gap: 0.6em;
 
   li:first-child {
     font-weight: 700;
-    margin-bottom: .7em;
+    margin-bottom: 0.7em;
   }
   li {
-    font-size: .8em;
+    font-size: 0.8em;
   }
 
   a {
     color: $gray-text;
+    transition-property: color;
+    transition-duration: 0.2s;
+  }
+  a:hover {
+    color: $cyan;
   }
 }
 
 .attribution {
-  margin-top: 2em;
-  font-size: .8em;
+  margin-top: 5em;
+  font-size: 0.8em;
+  text-align: center;
 
   a {
-    color: cyan;
+    color: $cyan;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+@media (min-width: 992px) {
+
+  /* ################ header ################ */
+  header {
+    .container {
+      display: flex;
+      justify-content: stretch;
+      gap: 2.5em;
+
+      > nav {
+        flex: 1 0 auto;
+      }
+    }
+  }
+
+  #toggle-button {
+    display: none;
+  }
+
+  #navList {
+    position: static;
+    background: none;
+    width: 100%;
+
+    flex-direction: row;
+    align-items: baseline;
+    gap: 1.5em;
+
+    padding: 0;
+    padding-block: 0;
+    padding-inline: 0;
+
+    a {
+      color: $gray-text;
+    }
+
+    .btn {
+      padding-inline: 1.5em;
+    }
+
+    li {
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+
+    .filler {
+      border: 0;
+      margin: 0;
+      flex-grow: 100; 
+    }
+  }
+  #navList[data-visible=false] {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+   /* ################ main, footer ################ */
+  main, footer {
+    text-align: left;
+  }
+
+  /* ################ intro ################ */
+  #intro {
+    padding-block-start: 3em;
+
+    .container {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      justify-content: space-between;
+      gap: 5em;
+
+      .content {
+        width: 50%;
+        flex-basis: 50%;
+      }
+
+      .img-container {
+        flex-basis: 40%;
+      }
+
+      h1 {
+        font-size: 3.75em;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  /* ################ advanced ################ */
+  #advanced-statistics {
+    padding-block-end: 13em;
+
+    h2 {
+      font-size: 2em;
+      margin-bottom: .3em;
+    }
+  }
+
+  #cards {
+    flex-direction: row;
+    gap: 2em;
+
+    .line {
+      height: 8px;
+      width: 100%;
+      top: calc(50% - 4px);
+      left: 0;
+    }
+  }
+
+  .card {
+    .icon {
+      left: 4em;
+    }
+  }
+  .card:nth-child(3) {
+    transform: translateY(3em);
+  }
+  .card:nth-child(4) {
+    transform: translateY(6em);
+  }
+
+  /* ################ boost ################ */
+  #boost {
+    padding-block: 3.5em;
+    gap: 2em;
+
+    h2 {
+      font-size: 2.2em;
+    }
+  }
+
+  /* ################ footer ################ */
+  footer {
+    .container { 
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .lists {
+      margin: 0;
+
+      flex-direction: row;
+      align-items: start;
+      gap: 5em;
+    }
   }
 }
