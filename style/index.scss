@@ -1,11 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&family=Chakra+Petch:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Josefin+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Karla:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Orbitron:wght@400;500;600;700;800;900&family=Play:wght@400;700&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&family=Raleway:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=VT323&display=swap");
 
-$gray: hsl(0, 0%, 75%);
+$cyan: hsl(180, 66%, 49%);
+$dark-violet: hsl(257, 27%, 26%);
+$red: hsl(0, 87%, 67%);
+
 $grayish-violet: hsl(257, 7%, 63%);
 $very-dark-blue: hsl(255, 11%, 22%);
 $very-dark-violet: hsl(260, 8%, 14%);
+
+$gray: hsl(0, 0%, 75%);
 $gray-text: hsl(0, 0, 63%);
-$cyan: hsl(180, 100%, 45%);
 
 * {
   padding: 0px;
@@ -34,7 +38,7 @@ h4,
 h5,
 h6 {
   color: $very-dark-violet;
-  line-height: 1.2;
+  line-height: 1.14;
 }
 
 p {
@@ -48,7 +52,7 @@ a {
 
 /* ################ Utility Classes ################ */
 .container {
-  max-width: 1150px;
+  max-width: 1100px;
   margin-inline: auto;
 }
 
@@ -77,14 +81,15 @@ a {
 
   text-align: center;
   font-weight: 700;
-  font-size: 1.1em;
+  transition-property: background-color;
+  transition-duration: .2s;
 }
 .primary-btn {
-  background-color: $cyan !important;
+  background-color: $cyan;
   color: white !important;
 }
 .primary-btn:hover {
-  background-color: hsl(180, 100%, 70%);
+  background-color: hsl(180, 66%, 70%);
 }
 
 /* ################header################ */
@@ -121,7 +126,7 @@ header {
   left: 7%;
   right: 7%;
 
-  background-color: $very-dark-blue;
+  background-color: $dark-violet;
   border-radius: 10px;
   padding-block: 2em;
   padding-inline: 1.4em;
@@ -137,7 +142,7 @@ header {
   }
 
   .filler {
-    border-top: 1px solid hsla(0, 0%, 100%, 0.2);
+    border-top: 1px solid hsla(0, 0%, 100%, 0.1);
     margin-block: 1em;
   }
 
@@ -171,10 +176,6 @@ footer {
   .content {
     margin-top: 1.5em;
 
-    h1 {
-      margin-bottom: .5em;
-    }
-
     .btn {
       margin-top: 1.6em;
     }
@@ -183,6 +184,11 @@ footer {
   h1 {
     font-size: 2.3em;
     height: min-content;
+    margin-bottom: .3em;
+  }
+
+  p {
+    max-width: 500px;
   }
 
   img {
@@ -191,18 +197,20 @@ footer {
 }
 
 /* ################ advanced statistics ################ */
-#advanced-statistics {
+#features {
   padding-block: 4em;
   background-color: hsl(0, 0, 95%);
 
   .top {
     margin-bottom: 6em;
+
     p {
-      font-size: 0.85em;
+      font-size: 0.9em;
       max-width: 450px;
       margin-inline: auto;
     }
   }
+
 
   h2 {
     margin-bottom: .7em;
@@ -228,8 +236,8 @@ footer {
   background: white;
   padding-block-start: 4em;
   padding-block-end: 2em;
-  padding-inline: 2em;
-  border-radius: 0.5em;
+  padding-inline: 1.5em;
+  border-radius: 0.4em;
 
   position: relative;
   .icon {
@@ -238,7 +246,7 @@ footer {
     top: 0%;
     transform: translate(-50%, -50%);
 
-    background-color: $very-dark-violet;
+    background-color: $dark-violet;
     width: 80px;
     aspect-ratio: 1;
     border-radius: 50%;
@@ -254,11 +262,15 @@ footer {
   h3 {
     margin-bottom: 1em;
   }
+
+  p {
+    font-size: .8em;
+  }
 }
 
 /* ################ boost section ################ */
 #boost {
-  background-color: $very-dark-blue;
+  background-color: $dark-violet;
   background-image: url("../images/bg-boost-mobile.svg");
   background-size: 100% 100%;
 
@@ -348,11 +360,10 @@ footer {
   /* ################ header ################ */
   header {
     .container {
-      display: flex;
       justify-content: stretch;
       gap: 2.5em;
 
-      > nav {
+      nav {
         flex: 1 0 auto;
       }
     }
@@ -365,18 +376,19 @@ footer {
   #navList {
     position: static;
     background: none;
-    width: 100%;
+    padding: 0;
 
     flex-direction: row;
     align-items: baseline;
     gap: 1.5em;
 
-    padding: 0;
-    padding-block: 0;
-    padding-inline: 0;
-
     a {
       color: $gray-text;
+      transition: color .3s;
+      font-size: .8em;
+    }
+    a:hover {
+      color: $very-dark-violet;
     }
 
     .btn {
@@ -406,33 +418,42 @@ footer {
 
   /* ################ intro ################ */
   #intro {
-    padding-block-start: 3em;
+    padding-block-start: 2em;
 
     .container {
       display: flex;
       flex-direction: row-reverse;
-      align-items: center;
       justify-content: space-between;
-      gap: 5em;
+    }
 
-      .content {
-        width: 50%;
-        flex-basis: 50%;
-      }
+    .content {
+      margin-top: 4.5em;  
+      width: 60%;
+      flex-basis: 60%;
+    }
 
-      .img-container {
-        flex-basis: 40%;
-      }
+    .img-container {
+      width: 40%;   
+      flex-basis: 40%;
+    }
 
-      h1 {
-        font-size: 3.75em;
-        margin-bottom: 0;
-      }
+    h1 {
+      font-size: 4em;
+      margin-bottom: 0;
+      letter-spacing: -3px;
+    }
+
+    p {
+      font-size: 1.05em;
+    }
+
+    img {
+      max-width: 9999px;
     }
   }
 
   /* ################ advanced ################ */
-  #advanced-statistics {
+  #features {
     padding-block-end: 13em;
 
     h2 {
@@ -448,7 +469,7 @@ footer {
     .line {
       height: 8px;
       width: 100%;
-      top: calc(50% - 4px);
+      top: calc(70% - 4px);
       left: 0;
     }
   }
@@ -468,10 +489,12 @@ footer {
   /* ################ boost ################ */
   #boost {
     padding-block: 3.5em;
-    gap: 2em;
+    gap: 1.7em;
+
+    background-image: url('../images/bg-boost-desktop.svg');
 
     h2 {
-      font-size: 2.2em;
+      font-size: 1.9em;
     }
   }
 
