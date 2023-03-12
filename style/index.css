@@ -71,7 +71,7 @@ a {
   padding-inline: 2em;
   text-align: center;
   font-weight: 700;
-  transition-property: background-color;
+  transition-property: background-color, color;
   transition-duration: 0.2s;
   cursor: pointer;
 }
@@ -86,12 +86,13 @@ a {
 }
 
 .secondary-btn {
-  font-size: 1.1em;
-  box-shadow: 0 5px 15px hsla(0, 0%, 0%, 0.2);
+  background-color: hsl(260, 8%, 14%);
+  color: white;
+  font-size: 0.8em;
 }
 
 .secondary-btn:hover {
-  filter: brightness(0.7);
+  background-color: hsl(255, 11%, 22%);
 }
 
 .field {
@@ -246,6 +247,7 @@ footer {
 }
 #shorten form .field {
   padding: 1em;
+  font-size: 0.9em;
 }
 #shorten form .btn {
   font-size: 1em;
@@ -260,14 +262,20 @@ footer {
 }
 #shorten .error-message {
   color: hsl(0, 87%, 67%);
-  font-size: 0.6em;
+  font-size: 0.7em;
   text-align: left;
-  margin: 0.3em 0em 0;
+  margin: 0.3em 0 0;
 }
 #shorten .field.failed {
   border: 3px solid hsl(0, 87%, 67%);
 }
-#shorten .list-of-links {
+#shorten .field.failed::-moz-placeholder {
+  color: hsl(0, 87%, 67%);
+}
+#shorten .field.failed::placeholder {
+  color: hsl(0, 87%, 67%);
+}
+#shorten .links-container {
   padding-block: 2em;
 }
 #shorten .list-of-links > * + * {
@@ -287,7 +295,6 @@ footer {
 .link a {
   display: block;
   word-wrap: break-word;
-  word-break: break-all;
 }
 .link a:hover {
   text-decoration: underline;
@@ -305,7 +312,6 @@ footer {
 .link .btn {
   width: 100%;
   padding-block: 0.9em;
-  white-space: nowrap;
 }
 .link .btn.copied {
   background-color: hsl(255, 11%, 22%);
@@ -541,8 +547,7 @@ footer .socials a:hover img {
   #shorten form .field,
   #shorten form .btn {
     height: 60px;
-    font-size: 1.1em;
-    white-space: nowrap;
+    font-size: 1.05em;
   }
   #shorten form .field-container {
     flex-grow: 1;
@@ -551,27 +556,33 @@ footer .socials a:hover img {
     flex-basis: 180px;
   }
   #shorten .error-message {
-    font-size: 0.9em;
+    font-size: 0.8em;
   }
   .link {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    font-size: 1.1em;
+    font-size: 1.05em;
   }
   .link > * {
     padding: 1.3em;
   }
   .link .long {
     border: 0;
+    word-break: break-all;
   }
   .link .short {
     display: flex;
     align-items: baseline;
     gap: min(2vw, 1.5em);
   }
+  .link .short a {
+    margin: 0;
+  }
   .link .btn {
-    width: 100px;
+    padding-inline: 0;
+    width: 120px;
+    font-size: 0.9em;
   }
   /* ################ advanced ################ */
   #features {

@@ -84,7 +84,7 @@ a {
 
   text-align: center;
   font-weight: 700;
-  transition-property: background-color;
+  transition-property: background-color, color;
   transition-duration: 0.2s;
 
   cursor: pointer;
@@ -97,11 +97,12 @@ a {
   background-color: hsl(180, 66%, 70%);
 }
 .secondary-btn {
-  font-size: 1.1em;
-  box-shadow: 0 5px 15px hsla(0, 0%, 0%, 0.2);
+  background-color: $very-dark-violet;
+  color: white;
+  font-size: .8em;
 }
 .secondary-btn:hover {
-  filter: brightness(0.7);
+  background-color: $very-dark-blue;
 }
 
 .field {
@@ -267,6 +268,7 @@ footer {
     }
     .field {
       padding: 1em;
+      font-size: .9em;
     }
     .btn {
       font-size: 1em;
@@ -284,18 +286,23 @@ footer {
 
   .error-message {
     color: $red;
-    font-size: 0.6em;
+    font-size: 0.7em;
     text-align: left;
-    margin: 0.3em 0em 0;
+    margin: 0.3em 0 0;
   }
 
   .field.failed {
     border: 3px solid $red;
   }
+  .field.failed::placeholder {
+    color: $red;
+  }
+
+  .links-container {
+    padding-block: 2em;
+  }
 
   .list-of-links {
-    padding-block: 2em;
-
     > * + * {
       margin-top: 2em;
     }
@@ -315,7 +322,6 @@ footer {
   a {
     display: block;
     word-wrap: break-word;
-    word-break: break-all;
   }
   a:hover {
     text-decoration: underline;
@@ -338,7 +344,6 @@ footer {
   .btn {
     width: 100%;
     padding-block: 0.9em;
-    white-space: nowrap;
   }
   .btn.copied {
     background-color: $very-dark-blue;
@@ -608,14 +613,14 @@ footer {
       padding: 3em;
       background-image: url('../images/bg-shorten-desktop.svg');
     }
+
     form {
       flex-direction: row;
 
       .field,
       .btn {
         height: 60px;
-        font-size: 1.1em;
-        white-space: nowrap;
+        font-size: 1.05em;
       }
 
       .field-container {
@@ -627,14 +632,14 @@ footer {
     }
 
     .error-message {
-      font-size: .9em;
+      font-size: .8em;
     }
   }
   .link {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    font-size: 1.1em;
+    font-size: 1.05em;
 
     > * {
       padding: 1.3em;
@@ -642,16 +647,23 @@ footer {
 
     .long {
       border: 0;
+      word-break: break-all;
     }
 
     .short {
       display: flex;
       align-items: baseline;
       gap: min(2vw, 1.5em);
+
+      a {
+        margin: 0;
+      }
     }
 
     .btn {
-      width: 100px;
+      padding-inline: 0;
+      width: 120px;
+      font-size: .9em;
     }
   }
 

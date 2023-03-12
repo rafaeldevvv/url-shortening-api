@@ -22,7 +22,7 @@ function _shortenUrl() {
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
-          return _context3.abrupt("return", new Promise(function (resolve) {
+          return _context3.abrupt("return", new Promise(function (resolve, reject) {
             var linkRequest = {
               destination: url,
               domain: {
@@ -40,9 +40,12 @@ function _shortenUrl() {
             }).then(function (response) {
               return response.json();
             }).then(function (data) {
-              resolve(data.shortUrl);
+              if (data.httpCode >= 400) {
+                throw new Error(data.code);
+              }
+              resolve(completeUrl(data.shortUrl));
             })["catch"](function (reason) {
-              throw new Error(reason);
+              reject(reason);
             });
           }));
         case 1:
@@ -76,21 +79,19 @@ function App() {
           case 0:
             setIsSubmitting(true);
             _context.prev = 1;
-            _context.t0 = completeUrl;
-            _context.next = 5;
+            _context.next = 4;
             return shortenUrl(url);
-          case 5:
-            _context.t1 = _context.sent;
-            _short = (0, _context.t0)(_context.t1);
-            _context.next = 14;
+          case 4:
+            _short = _context.sent;
+            _context.next = 12;
             break;
-          case 9:
-            _context.prev = 9;
-            _context.t2 = _context["catch"](1);
-            alert(_context.t2);
+          case 7:
+            _context.prev = 7;
+            _context.t0 = _context["catch"](1);
+            alert(_context.t0);
             setIsSubmitting(false);
             return _context.abrupt("return");
-          case 14:
+          case 12:
             newLinks = [{
               "long": url,
               "short": _short,
@@ -99,11 +100,11 @@ function App() {
             localStorage.setItem("links", JSON.stringify(newLinks));
             setLinks(newLinks);
             setIsSubmitting(false);
-          case 18:
+          case 16:
           case "end":
             return _context.stop();
         }
-      }, _callee, null, [[1, 9]]);
+      }, _callee, null, [[1, 7]]);
     }));
     return _handleSubmit.apply(this, arguments);
   }
@@ -173,7 +174,9 @@ function ListOfLinks(_ref2) {
     _useState10 = _slicedToArray(_useState9, 2),
     numberOfLinks = _useState10[0],
     setNumberOfLinks = _useState10[1];
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "links-container"
+  }, /*#__PURE__*/React.createElement("div", {
     className: "list-of-links"
   }, links.map(function (l, i) {
     if (i >= numberOfLinks) return;
@@ -185,6 +188,11 @@ function ListOfLinks(_ref2) {
     className: "btn secondary-btn",
     onClick: function onClick() {
       setNumberOfLinks(numberOfLinks + 3);
+    },
+    style: {
+      marginInline: "auto",
+      marginTop: "2em",
+      display: "block"
     }
   }, "Show more"));
 }

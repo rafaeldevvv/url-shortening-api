@@ -1,7 +1,7 @@
 const useState = React.useState;
 
 async function shortenUrl(url) {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     let linkRequest = {
       destination: url,
       domain: { fullName: "rebrand.ly" },
@@ -17,13 +17,18 @@ async function shortenUrl(url) {
       method: "POST",
       body: JSON.stringify(linkRequest),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        resolve(data.shortUrl);
-      })
-      .catch((reason) => {
-        throw new Error(reason);
-      });
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      if (data.httpCode >= 400) {
+        throw new Error(data.code);
+      }
+      resolve(completeUrl(data.shortUrl));
+    })
+    .catch((reason) => {
+      reject(reason);
+    })
   });
 
   // shortUrl - Property
@@ -43,7 +48,7 @@ function App() {
     setIsSubmitting(true);
     let short;
     try {
-      short = completeUrl(await shortenUrl(url));
+      short = await shortenUrl(url);
     } catch (err) {
       alert(err);
       setIsSubmitting(false);
@@ -116,7 +121,7 @@ function ListOfLinks({ links }) {
   const [numberOfLinks, setNumberOfLinks] = useState(3);
 
   return (
-    <div>
+    <div className="links-container">
       <div className="list-of-links">
         {links.map((l, i) => {
           if (i >= numberOfLinks) return;
@@ -129,6 +134,11 @@ function ListOfLinks({ links }) {
           className="btn secondary-btn"
           onClick={() => {
             setNumberOfLinks(numberOfLinks + 3);
+          }}
+          style={{
+            marginInline: "auto",
+            marginTop: "2em",
+            display: "block",
           }}
         >
           Show more
