@@ -14,148 +14,223 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var useState = React.useState;
-function shortenLink(_x) {
-  return _shortenLink.apply(this, arguments);
+function shortenUrl(_x) {
+  return _shortenUrl.apply(this, arguments);
 }
-function _shortenLink() {
-  _shortenLink = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(url) {
-    var linkRequest, requestHeaders;
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
+function _shortenUrl() {
+  _shortenUrl = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(url) {
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
         case 0:
-          linkRequest = {
-            destination: url,
-            domain: {
-              fullName: "rebrand.ly"
-            }
-          };
-          requestHeaders = {
-            "Content-Type": "application/json",
-            apikey: "08125f5fc16149a485908fe8c40c24bf"
-          };
-          _context2.next = 4;
-          return fetch("https://api.rebrandly.com/v1/links", {
-            headers: requestHeaders,
-            method: "POST",
-            body: JSON.stringify(linkRequest)
-          }).then(function (response) {
-            return response.json();
-          });
-        case 4:
-          return _context2.abrupt("return", _context2.sent);
-        case 5:
+          return _context3.abrupt("return", new Promise(function (resolve) {
+            var linkRequest = {
+              destination: url,
+              domain: {
+                fullName: "rebrand.ly"
+              }
+            };
+            var requestHeaders = {
+              "Content-Type": "application/json",
+              apikey: "08125f5fc16149a485908fe8c40c24bf"
+            };
+            fetch("https://api.rebrandly.com/v1/links", {
+              headers: requestHeaders,
+              method: "POST",
+              body: JSON.stringify(linkRequest)
+            }).then(function (response) {
+              return response.json();
+            }).then(function (data) {
+              resolve(data.shortUrl);
+            })["catch"](function (reason) {
+              throw new Error(reason);
+            });
+          }));
+        case 1:
         case "end":
-          return _context2.stop();
+          return _context3.stop();
       }
-    }, _callee2);
+    }, _callee3);
   }));
-  return _shortenLink.apply(this, arguments);
+  return _shortenUrl.apply(this, arguments);
+}
+function completeUrl(url) {
+  return "https://" + url;
 }
 function App() {
-  var _useState = useState(JSON.parse(localStorage.getItem("links")) || [{
-      id: 5,
-      shortened: "a",
-      original: "b"
-    }]),
+  var _useState = useState(JSON.parse(localStorage.getItem("links")) || []),
     _useState2 = _slicedToArray(_useState, 2),
     links = _useState2[0],
     setLinks = _useState2[1];
+  var _useState3 = useState(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    isSubmitting = _useState4[0],
+    setIsSubmitting = _useState4[1];
   function handleSubmit(_x2) {
     return _handleSubmit.apply(this, arguments);
   }
   function _handleSubmit() {
     _handleSubmit = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(url) {
-      var newLink;
+      var _short, newLinks;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
-            return shortenLink(url);
-          case 2:
-            newLink = _context.sent;
-            setLinks([{
-              original: newLink.destination,
-              shortened: newLink["short"],
+            setIsSubmitting(true);
+            _context.prev = 1;
+            _context.t0 = completeUrl;
+            _context.next = 5;
+            return shortenUrl(url);
+          case 5:
+            _context.t1 = _context.sent;
+            _short = (0, _context.t0)(_context.t1);
+            _context.next = 14;
+            break;
+          case 9:
+            _context.prev = 9;
+            _context.t2 = _context["catch"](1);
+            alert(_context.t2);
+            setIsSubmitting(false);
+            return _context.abrupt("return");
+          case 14:
+            newLinks = [{
+              "long": url,
+              "short": _short,
               id: crypto.randomUUID()
-            }].concat(_toConsumableArray(links)));
-          case 4:
+            }].concat(_toConsumableArray(links));
+            localStorage.setItem("links", JSON.stringify(newLinks));
+            setLinks(newLinks);
+            setIsSubmitting(false);
+          case 18:
           case "end":
             return _context.stop();
         }
-      }, _callee);
+      }, _callee, null, [[1, 9]]);
     }));
     return _handleSubmit.apply(this, arguments);
   }
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "container"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "top-part"
   }, /*#__PURE__*/React.createElement(Form, {
-    onSubmit: handleSubmit
-  })), /*#__PURE__*/React.createElement(LinkList, {
+    onSubmit: handleSubmit,
+    disabled: isSubmitting
+  }), isSubmitting && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: "1em"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "spinner",
+    style: {
+      marginInline: "auto"
+    }
+  }))), /*#__PURE__*/React.createElement(ListOfLinks, {
     links: links
   }));
 }
 function Form(_ref) {
-  var _onSubmit = _ref.onSubmit;
-  var _useState3 = useState(""),
-    _useState4 = _slicedToArray(_useState3, 2),
-    url = _useState4[0],
-    setUrl = _useState4[1];
-  var _useState5 = useState(false),
+  var _onSubmit = _ref.onSubmit,
+    disabled = _ref.disabled;
+  var _useState5 = useState(""),
     _useState6 = _slicedToArray(_useState5, 2),
-    isEmpty = _useState6[0],
-    setIsEmpty = _useState6[1];
+    url = _useState6[0],
+    setUrl = _useState6[1];
+  var _useState7 = useState(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    isEmpty = _useState8[0],
+    setIsEmpty = _useState8[1];
   return /*#__PURE__*/React.createElement("form", {
     onSubmit: function onSubmit(e) {
       e.preventDefault();
-      if (!e.target.elements.url.value) {
+      if (!url) {
         setIsEmpty(true);
-      } else {
-        _onSubmit(url);
+        return;
       }
+      setIsEmpty(false);
+      _onSubmit(url);
     }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("input", {
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "field-container"
+  }, /*#__PURE__*/React.createElement("input", {
     type: "url",
-    name: "url",
+    placeholder: "Shorten a link here...",
     value: url,
     onChange: function onChange(e) {
-      return setUrl(e.target.value);
+      setUrl(e.target.value);
     },
-    className: "field",
-    placeholder: "Shorten a link here..."
+    className: "field ".concat(isEmpty && "failed"),
+    disabled: disabled
   }), isEmpty && /*#__PURE__*/React.createElement("p", {
-    className: "errorMessage"
+    className: "error-message"
   }, "Please add a link")), /*#__PURE__*/React.createElement("button", {
+    className: "btn primary-btn",
     type: "submit",
-    className: "btn primary-btn"
-  }, "Shorten it!"));
+    disabled: disabled
+  }, "Shorten It!"));
 }
-function LinkList(_ref2) {
+function ListOfLinks(_ref2) {
   var links = _ref2.links;
-  return /*#__PURE__*/React.createElement("div", {
-    className: "links"
-  }, links.map(function (l) {
+  var _useState9 = useState(3),
+    _useState10 = _slicedToArray(_useState9, 2),
+    numberOfLinks = _useState10[0],
+    setNumberOfLinks = _useState10[1];
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "list-of-links"
+  }, links.map(function (l, i) {
+    if (i >= numberOfLinks) return;
     return /*#__PURE__*/React.createElement(Link, {
-      key: l.id,
-      link: l
+      link: l,
+      key: l.id
     });
-  }));
+  })), links.length > 0 && numberOfLinks < links.length && /*#__PURE__*/React.createElement("button", {
+    className: "btn secondary-btn",
+    onClick: function onClick() {
+      setNumberOfLinks(numberOfLinks + 3);
+    }
+  }, "Show more"));
 }
 function Link(_ref3) {
   var link = _ref3.link;
-  function handleClick() {}
+  var _useState11 = useState(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    isCopied = _useState12[0],
+    setIsCopied = _useState12[1];
+  var _long = link["long"],
+    _short2 = link["short"];
+  function handleClick() {
+    return _handleClick.apply(this, arguments);
+  }
+  function _handleClick() {
+    _handleClick = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return navigator.clipboard.writeText(_short2);
+          case 2:
+            setIsCopied(true);
+          case 3:
+          case "end":
+            return _context2.stop();
+        }
+      }, _callee2);
+    }));
+    return _handleClick.apply(this, arguments);
+  }
   return /*#__PURE__*/React.createElement("div", {
     className: "link"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "previous"
+    className: "long"
   }, /*#__PURE__*/React.createElement("a", {
-    href: link.original
-  }, link.original)), /*#__PURE__*/React.createElement("div", {
+    href: _long,
+    target: "_blank"
+  }, _long)), /*#__PURE__*/React.createElement("div", {
     className: "short"
   }, /*#__PURE__*/React.createElement("a", {
-    href: link.shortened
-  }, link.shortened), /*#__PURE__*/React.createElement("button", {
-    onClick: handleClick,
-    "class": "btn primary-btn"
-  }, "Copy")));
+    href: _short2,
+    target: "_blank"
+  }, _short2), /*#__PURE__*/React.createElement("button", {
+    className: "btn primary-btn ".concat(isCopied && "copied"),
+    onClick: handleClick
+  }, isCopied ? "Copied!" : "Copy")));
 }
 ReactDOM.createRoot(document.querySelector("#shorten")).render( /*#__PURE__*/React.createElement(App, null));

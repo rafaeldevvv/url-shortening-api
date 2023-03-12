@@ -1,54 +1,79 @@
 const useState = React.useState;
 
-async function shortenLink(url) {
-  let linkRequest = {
-    destination: url,
-    domain: { fullName: "rebrand.ly" },
-  };
+async function shortenUrl(url) {
+  return new Promise((resolve) => {
+    let linkRequest = {
+      destination: url,
+      domain: { fullName: "rebrand.ly" },
+    };
 
-  let requestHeaders = {
-    "Content-Type": "application/json",
-    apikey: "08125f5fc16149a485908fe8c40c24bf",
-  };
+    let requestHeaders = {
+      "Content-Type": "application/json",
+      apikey: "08125f5fc16149a485908fe8c40c24bf",
+    };
 
-  return await fetch("https://api.rebrandly.com/v1/links", {
-    headers: requestHeaders,
-    method: "POST",
-    body: JSON.stringify(linkRequest),
-  }).then((response) => response.json());
+    fetch("https://api.rebrandly.com/v1/links", {
+      headers: requestHeaders,
+      method: "POST",
+      body: JSON.stringify(linkRequest),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        resolve(data.shortUrl);
+      })
+      .catch((reason) => {
+        throw new Error(reason);
+      });
+  });
+
+  // shortUrl - Property
+}
+
+function completeUrl(url) {
+  return "https://" + url;
 }
 
 function App() {
   const [links, setLinks] = useState(
-    JSON.parse(localStorage.getItem("links")) || [
-      { id: 5, shortened: "a", original: "b" },
-    ]
+    JSON.parse(localStorage.getItem("links")) || []
   );
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(url) {
-    let newLink = await shortenLink(url);
+    setIsSubmitting(true);
+    let short;
+    try {
+      short = completeUrl(await shortenUrl(url));
+    } catch (err) {
+      alert(err);
+      setIsSubmitting(false);
+      return;
+    }
 
-    setLinks([
-      {
-        original: newLink.destination,
-        shortened: newLink.short,
-        id: crypto.randomUUID(),
-      },
-      ...links,
-    ]);
+    const newLinks = [{ long: url, short, id: crypto.randomUUID() }, ...links];
+
+    localStorage.setItem("links", JSON.stringify(newLinks));
+    setLinks(newLinks);
+    setIsSubmitting(false);
   }
 
   return (
-    <div>
-      <div className="container">
-        <Form onSubmit={handleSubmit} />
+    <div className="container">
+      <div className="top-part">
+        <Form onSubmit={handleSubmit} disabled={isSubmitting} />
+
+        {isSubmitting && (
+          <div style={{ marginTop: "1em" }}>
+            <div className="spinner" style={{ marginInline: "auto" }}></div>
+          </div>
+        )}
       </div>
-      <LinkList links={links} />
+      <ListOfLinks links={links} />
     </div>
   );
 }
 
-function Form({ onSubmit }) {
+function Form({ onSubmit, disabled }) {
   const [url, setUrl] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
 
@@ -56,52 +81,90 @@ function Form({ onSubmit }) {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        if (!e.target.elements.url.value) {
+
+        if (!url) {
           setIsEmpty(true);
-        } else {
-          onSubmit(url);
+          return;
         }
+
+        setIsEmpty(false);
+        onSubmit(url);
       }}
     >
-      <div>
-      <input
-        type="url"
-        name="url"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-        className="field"
-        placeholder="Shorten a link here..."
-      />
-        {isEmpty && <p className='errorMessage'>Please add a link</p>}
+      <div className="field-container">
+        <input
+          type="url"
+          placeholder="Shorten a link here..."
+          value={url}
+          onChange={(e) => {
+            setUrl(e.target.value);
+          }}
+          className={`field ${isEmpty && "failed"}`}
+          disabled={disabled}
+        />
+
+        {isEmpty && <p className="error-message">Please add a link</p>}
       </div>
-      <button type="submit" className="btn primary-btn">
-        Shorten it!
+      <button className="btn primary-btn" type="submit" disabled={disabled}>
+        Shorten It!
       </button>
     </form>
   );
 }
 
-function LinkList({ links }) {
+function ListOfLinks({ links }) {
+  const [numberOfLinks, setNumberOfLinks] = useState(3);
+
   return (
-    <div className="links">
-      {links.map((l) => (
-        <Link key={l.id} link={l} />
-      ))}
+    <div>
+      <div className="list-of-links">
+        {links.map((l, i) => {
+          if (i >= numberOfLinks) return;
+          return <Link link={l} key={l.id} />;
+        })}
+      </div>
+
+      {links.length > 0 && numberOfLinks < links.length && (
+        <button
+          className="btn secondary-btn"
+          onClick={() => {
+            setNumberOfLinks(numberOfLinks + 3);
+          }}
+        >
+          Show more
+        </button>
+      )}
     </div>
   );
 }
 
 function Link({ link }) {
-  function handleClick() {}
+  const [isCopied, setIsCopied] = useState(false);
+
+  const { long, short } = link;
+
+  async function handleClick() {
+    await navigator.clipboard.writeText(short);
+    setIsCopied(true);
+  }
 
   return (
     <div className="link">
-      <div className="previous">
-        <a href={link.original}>{link.original}</a>
+      <div className="long">
+        <a href={long} target="_blank">
+          {long}
+        </a>
       </div>
       <div className="short">
-        <a href={link.shortened}>{link.shortened}</a>
-        <button onClick={handleClick} class='btn primary-btn'>Copy</button>
+        <a href={short} target="_blank">
+          {short}
+        </a>
+        <button
+          className={`btn primary-btn ${isCopied && "copied"}`}
+          onClick={handleClick}
+        >
+          {isCopied ? "Copied!" : "Copy"}
+        </button>
       </div>
     </div>
   );

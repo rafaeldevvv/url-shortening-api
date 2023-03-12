@@ -73,6 +73,7 @@ a {
   font-weight: 700;
   transition-property: background-color;
   transition-duration: 0.2s;
+  cursor: pointer;
 }
 
 .primary-btn {
@@ -84,8 +85,13 @@ a {
   background-color: hsl(180, 66%, 70%);
 }
 
-.square-like-border {
-  border-radius: 5px;
+.secondary-btn {
+  font-size: 1.1em;
+  box-shadow: 0 5px 15px hsla(0, 0%, 0%, 0.2);
+}
+
+.secondary-btn:hover {
+  filter: brightness(0.7);
 }
 
 .field {
@@ -105,6 +111,21 @@ a {
   color: hsl(0, 0%, 63%);
 }
 
+.spinner {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border-width: 3px;
+  border-style: solid;
+  border-color: white white transparent transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 /* ################header################ */
 header {
   height: 130px;
@@ -192,18 +213,26 @@ footer {
 }
 #intro p {
   max-width: 500px;
+  margin-inline: auto;
 }
 #intro img {
   max-width: 150%;
 }
 
 /* ################ shorten-link ################ */
-#shorten .container {
-  padding: 1em;
+/* ################ shorten-link ################ */
+/* ################ shorten-link ################ */
+/* ################ shorten-link ################ */
+#shorten {
+  background: linear-gradient(to bottom, white 80px, hsl(0, 0%, 95%) 80px);
+}
+#shorten .top-part {
+  padding: 1.3em;
   border-radius: 0.5em;
+  margin-bottom: 1em;
   background-color: hsl(257, 27%, 26%);
   background-image: url("../images/bg-shorten-mobile.svg");
-  background-size: 100% 100%;
+  background-position: top right;
   background-repeat: no-repeat;
 }
 #shorten form {
@@ -211,24 +240,75 @@ footer {
   flex-direction: column;
   gap: 1em;
 }
-#shorten .field, #shorten .btn {
-  padding: 1.2em;
-  border-radius: 0.5em;
+#shorten form .field,
+#shorten form .btn {
+  height: 50px;
 }
-#shorten .links {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  padding-block: 2em;
-}
-#shorten .link {
-  background-color: white;
-}
-#shorten .link > * {
+#shorten form .field {
   padding: 1em;
 }
-#shorten .link .previous {
+#shorten form .btn {
+  font-size: 1em;
+}
+#shorten form .field:disabled,
+#shorten form .btn:disabled {
+  opacity: 0.8;
+}
+#shorten .field,
+#shorten .btn {
+  border-radius: 0.4em;
+}
+#shorten .error-message {
+  color: hsl(0, 87%, 67%);
+  font-size: 0.6em;
+  text-align: left;
+  margin: 0.3em 0em 0;
+}
+#shorten .field.failed {
+  border: 3px solid hsl(0, 87%, 67%);
+}
+#shorten .list-of-links {
+  padding-block: 2em;
+}
+#shorten .list-of-links > * + * {
+  margin-top: 2em;
+}
+
+.link {
+  background-color: white;
+  border-radius: 0.3em;
+  text-align: left;
+  font-size: 0.9em;
+  font-weight: 700;
+}
+.link > * {
+  padding: 1em;
+}
+.link a {
+  display: block;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.link a:hover {
+  text-decoration: underline;
+}
+.link .long {
   border-bottom: 1px solid hsl(0, 0%, 75%);
+}
+.link .long a {
+  color: hsl(260, 8%, 14%);
+}
+.link .short a {
+  color: hsl(180, 66%, 49%);
+  margin-bottom: 0.7em;
+}
+.link .btn {
+  width: 100%;
+  padding-block: 0.9em;
+  white-space: nowrap;
+}
+.link .btn.copied {
+  background-color: hsl(255, 11%, 22%);
 }
 
 /* ################ advanced statistics ################ */
@@ -270,6 +350,8 @@ footer {
           padding-block-end: 2em;
   padding-inline: 1.5em;
   border-radius: 0.4em;
+  max-width: 500px;
+  margin-inline: auto;
   position: relative;
 }
 .card .icon {
@@ -413,7 +495,8 @@ footer .socials a:hover img {
     pointer-events: all;
   }
   /* ################ main, footer ################ */
-  main, footer {
+  main,
+  footer {
     text-align: left;
   }
   /* ################ intro ################ */
@@ -442,9 +525,53 @@ footer .socials a:hover img {
   }
   #intro p {
     font-size: 1.05em;
+    margin-inline: 0;
   }
   #intro img {
     max-width: 9999px;
+  }
+  /* ################ shorten ################ */
+  #shorten .top-part {
+    padding: 3em;
+    background-image: url("../images/bg-shorten-desktop.svg");
+  }
+  #shorten form {
+    flex-direction: row;
+  }
+  #shorten form .field,
+  #shorten form .btn {
+    height: 60px;
+    font-size: 1.1em;
+    white-space: nowrap;
+  }
+  #shorten form .field-container {
+    flex-grow: 1;
+  }
+  #shorten form .btn {
+    flex-basis: 180px;
+  }
+  #shorten .error-message {
+    font-size: 0.9em;
+  }
+  .link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 1.1em;
+  }
+  .link > * {
+    padding: 1.3em;
+  }
+  .link .long {
+    border: 0;
+  }
+  .link .short {
+    display: flex;
+    align-items: baseline;
+    gap: min(2vw, 1.5em);
+  }
+  .link .btn {
+    width: 100px;
   }
   /* ################ advanced ################ */
   #features {

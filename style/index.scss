@@ -85,7 +85,9 @@ a {
   text-align: center;
   font-weight: 700;
   transition-property: background-color;
-  transition-duration: .2s;
+  transition-duration: 0.2s;
+
+  cursor: pointer;
 }
 .primary-btn {
   background-color: $cyan;
@@ -94,8 +96,12 @@ a {
 .primary-btn:hover {
   background-color: hsl(180, 66%, 70%);
 }
-.square-like-border {
-  border-radius: 5px;
+.secondary-btn {
+  font-size: 1.1em;
+  box-shadow: 0 5px 15px hsla(0, 0%, 0%, 0.2);
+}
+.secondary-btn:hover {
+  filter: brightness(0.7);
 }
 
 .field {
@@ -103,11 +109,28 @@ a {
   outline: 0;
   border-radius: 5px;
   display: block;
-  padding-block: .7em;
+  padding-block: 0.7em;
   width: 100%;
 }
 .field::placeholder {
   color: $gray-text;
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+  border-width: 3px;
+  border-style: solid;
+  border-color: white white transparent transparent;
+
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ################header################ */
@@ -202,11 +225,12 @@ footer {
   h1 {
     font-size: 2.3em;
     height: min-content;
-    margin-bottom: .3em;
+    margin-bottom: 0.3em;
   }
 
   p {
     max-width: 500px;
+    margin-inline: auto;
   }
 
   img {
@@ -215,14 +239,20 @@ footer {
 }
 
 /* ################ shorten-link ################ */
+/* ################ shorten-link ################ */
+/* ################ shorten-link ################ */
+/* ################ shorten-link ################ */
 #shorten {
-  .container {
-    padding: 1em;
-    border-radius: .5em;
+  background: linear-gradient(to bottom, white 80px, hsl(0, 0, 95%) 80px);  
+
+  .top-part {
+    padding: 1.3em;
+    border-radius: 0.5em;
+    margin-bottom: 1em;
 
     background-color: $dark-violet;
-    background-image: url('../images/bg-shorten-mobile.svg');
-    background-size: 100% 100%;
+    background-image: url("../images/bg-shorten-mobile.svg");
+    background-position: top right;
     background-repeat: no-repeat;
   }
 
@@ -230,32 +260,90 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 1em;
-  }
 
-  .field, .btn {
-    padding: 1.2em;
-    border-radius: .5em;
-  }
-
-  .links {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    padding-block: 2em;
-  }
-  .link {
-    background-color: white;
-
-    > * {
+    .field,
+    .btn {
+      height: 50px;
+    }
+    .field {
       padding: 1em;
     }
+    .btn {
+      font-size: 1em;
+    }
+    .field:disabled,
+    .btn:disabled {
+      opacity: 0.8;
+    }
+  }
 
-    .previous {
-      border-bottom: 1px solid $gray;
+  .field,
+  .btn {
+    border-radius: 0.4em;
+  }
+
+  .error-message {
+    color: $red;
+    font-size: 0.6em;
+    text-align: left;
+    margin: 0.3em 0em 0;
+  }
+
+  .field.failed {
+    border: 3px solid $red;
+  }
+
+  .list-of-links {
+    padding-block: 2em;
+
+    > * + * {
+      margin-top: 2em;
     }
   }
 }
+.link {
+  background-color: white;
+  border-radius: 0.3em;
+  text-align: left;
+  font-size: 0.9em;
+  font-weight: 700;
 
+  > * {
+    padding: 1em;
+  }
+
+  a {
+    display: block;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .long {
+    border-bottom: 1px solid $gray;
+
+    a {
+      color: $very-dark-violet;
+    }
+  }
+  .short {
+    a {
+      color: $cyan;
+      margin-bottom: 0.7em;
+    }
+  }
+
+  .btn {
+    width: 100%;
+    padding-block: 0.9em;
+    white-space: nowrap;
+  }
+  .btn.copied {
+    background-color: $very-dark-blue;
+  }
+}
 
 /* ################ advanced statistics ################ */
 #features {
@@ -272,11 +360,9 @@ footer {
     }
   }
 
-
   h2 {
-    margin-bottom: .7em;
+    margin-bottom: 0.7em;
   }
-
 }
 #cards {
   display: flex;
@@ -299,6 +385,8 @@ footer {
   padding-block-end: 2em;
   padding-inline: 1.5em;
   border-radius: 0.4em;
+  max-width: 500px;
+  margin-inline: auto;
 
   position: relative;
   .icon {
@@ -325,7 +413,7 @@ footer {
   }
 
   p {
-    font-size: .8em;
+    font-size: 0.8em;
   }
 }
 
@@ -417,7 +505,6 @@ footer {
 }
 
 @media (min-width: 992px) {
-
   /* ################ header ################ */
   header {
     .container {
@@ -445,8 +532,8 @@ footer {
 
     a {
       color: $gray-text;
-      transition: color .3s;
-      font-size: .8em;
+      transition: color 0.3s;
+      font-size: 0.8em;
     }
     a:hover {
       color: $very-dark-violet;
@@ -464,16 +551,17 @@ footer {
     .filler {
       border: 0;
       margin: 0;
-      flex-grow: 100; 
+      flex-grow: 100;
     }
   }
-  #navList[data-visible=false] {
+  #navList[data-visible="false"] {
     opacity: 1;
     pointer-events: all;
   }
 
-   /* ################ main, footer ################ */
-  main, footer {
+  /* ################ main, footer ################ */
+  main,
+  footer {
     text-align: left;
   }
 
@@ -488,13 +576,13 @@ footer {
     }
 
     .content {
-      margin-top: 4.5em;  
+      margin-top: 4.5em;
       width: 60%;
       flex-basis: 60%;
     }
 
     .img-container {
-      width: 40%;   
+      width: 40%;
       flex-basis: 40%;
     }
 
@@ -506,10 +594,64 @@ footer {
 
     p {
       font-size: 1.05em;
+      margin-inline: 0;
     }
 
     img {
       max-width: 9999px;
+    }
+  }
+
+  /* ################ shorten ################ */
+  #shorten {
+    .top-part {
+      padding: 3em;
+      background-image: url('../images/bg-shorten-desktop.svg');
+    }
+    form {
+      flex-direction: row;
+
+      .field,
+      .btn {
+        height: 60px;
+        font-size: 1.1em;
+        white-space: nowrap;
+      }
+
+      .field-container {
+        flex-grow: 1;
+      }
+      .btn {
+        flex-basis: 180px;
+      }
+    }
+
+    .error-message {
+      font-size: .9em;
+    }
+  }
+  .link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 1.1em;
+
+    > * {
+      padding: 1.3em;
+    }
+
+    .long {
+      border: 0;
+    }
+
+    .short {
+      display: flex;
+      align-items: baseline;
+      gap: min(2vw, 1.5em);
+    }
+
+    .btn {
+      width: 100px;
     }
   }
 
@@ -519,7 +661,7 @@ footer {
 
     h2 {
       font-size: 2em;
-      margin-bottom: .3em;
+      margin-bottom: 0.3em;
     }
   }
 
@@ -552,7 +694,7 @@ footer {
     padding-block: 3.5em;
     gap: 1.7em;
 
-    background-image: url('../images/bg-boost-desktop.svg');
+    background-image: url("../images/bg-boost-desktop.svg");
 
     h2 {
       font-size: 1.9em;
@@ -561,7 +703,7 @@ footer {
 
   /* ################ footer ################ */
   footer {
-    .container { 
+    .container {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
