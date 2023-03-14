@@ -154,7 +154,7 @@ function Form(_ref) {
     onChange: function onChange(e) {
       setUrl(e.target.value);
     },
-    className: "field ".concat(isEmpty && "failed"),
+    className: "field ".concat(isEmpty ? 'empty' : ''),
     disabled: disabled
   }), isEmpty && /*#__PURE__*/React.createElement("p", {
     className: "error-message"

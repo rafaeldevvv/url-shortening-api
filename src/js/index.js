@@ -109,7 +109,7 @@ function Form({ onSubmit, disabled }) {
           onChange={(e) => {
             setUrl(e.target.value);
           }}
-          className={`field ${isEmpty && "failed"}`}
+          className={`field ${isEmpty ? 'empty' : ''}`}
           disabled={disabled}
         />
 

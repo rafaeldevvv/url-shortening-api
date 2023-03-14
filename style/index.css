@@ -283,13 +283,13 @@ footer {
   margin: 0.3em 0 0;
   font-style: italic;
 }
-#shorten .field.failed {
+#shorten .field.empty {
   border: 3px solid hsl(0, 87%, 67%);
 }
-#shorten .field.failed::-moz-placeholder {
+#shorten .field.empty::-moz-placeholder {
   color: hsl(0, 87%, 67%);
 }
-#shorten .field.failed::placeholder {
+#shorten .field.empty::placeholder {
   color: hsl(0, 87%, 67%);
 }
 #shorten .links-container {
@@ -333,6 +333,7 @@ footer {
 .link .btn {
   width: 100%;
   padding-block: 0.9em;
+  font-size: 0.9em;
 }
 .link .btn.copied {
   background-color: hsl(255, 11%, 22%);

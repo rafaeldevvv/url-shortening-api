@@ -307,10 +307,10 @@ footer {
     font-style: italic;
   }
 
-  .field.failed {
+  .field.empty {
     border: 3px solid $red;
   }
-  .field.failed::placeholder {
+  .field.empty::placeholder {
     color: $red;
   }
 
@@ -365,6 +365,7 @@ footer {
   .btn {
     width: 100%;
     padding-block: 0.9em;
+    font-size: .9em;
   }
   .btn.copied {
     background-color: $very-dark-blue;
