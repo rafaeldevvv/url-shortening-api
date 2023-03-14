@@ -140,10 +140,10 @@ function Form(_ref) {
       e.preventDefault();
       if (!url) {
         setIsEmpty(true);
-        return;
+      } else {
+        setIsEmpty(false);
+        _onSubmit(url);
       }
-      setIsEmpty(false);
-      _onSubmit(url);
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "field-container"
@@ -189,8 +189,9 @@ function ListOfLinks(_ref2) {
     },
     style: {
       marginInline: "auto",
+      display: "block",
       marginTop: "2em",
-      display: "block"
+      fontSize: '1em'
     }
   }, "Show more"));
 }
@@ -238,7 +239,7 @@ function Link(_ref3) {
   }, _short2), /*#__PURE__*/React.createElement("div", {
     className: "buttons"
   }, /*#__PURE__*/React.createElement("button", {
-    className: "btn primary-btn ".concat(isCopied && "copied"),
+    className: "btn primary-btn ".concat(isCopied ? "copied" : ""),
     onClick: handleClick
   }, isCopied ? "Copied!" : "Copy"), /*#__PURE__*/React.createElement("button", {
     className: "remove-btn",

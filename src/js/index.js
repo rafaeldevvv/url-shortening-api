@@ -94,11 +94,11 @@ function Form({ onSubmit, disabled }) {
 
         if (!url) {
           setIsEmpty(true);
-          return;
+        } else {
+          setIsEmpty(false);
+          onSubmit(url);
         }
 
-        setIsEmpty(false);
-        onSubmit(url);
       }}
     >
       <div className="field-container">
@@ -142,8 +142,9 @@ function ListOfLinks({ links, onRemove }) {
           }}
           style={{
             marginInline: "auto",
-            marginTop: "2em",
             display: "block",
+            marginTop: "2em",
+            fontSize: '1em'
           }}
         >
           Show more
@@ -176,7 +177,7 @@ function Link({ link, onRemove }) {
         </a>
         <div className="buttons">
           <button
-            className={`btn primary-btn ${isCopied && "copied"}`}
+            className={`btn primary-btn ${isCopied ? "copied" : ""}`}
             onClick={handleClick}
           >
             {isCopied ? "Copied!" : "Copy"}

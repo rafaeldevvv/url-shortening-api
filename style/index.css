@@ -89,7 +89,6 @@ a {
 .secondary-btn {
   background-color: hsl(260, 8%, 14%);
   color: white;
-  font-size: 0.8em;
 }
 
 .secondary-btn:hover {
@@ -271,6 +270,7 @@ footer {
 #shorten form .field:disabled,
 #shorten form .btn:disabled {
   opacity: 0.8;
+  cursor: not-allowed;
 }
 #shorten .field,
 #shorten .btn {

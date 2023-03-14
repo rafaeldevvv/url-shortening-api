@@ -100,7 +100,6 @@ a {
 .secondary-btn {
   background-color: $very-dark-violet;
   color: white;
-  font-size: .8em;
 }
 .secondary-btn:hover {
   background-color: $very-dark-blue;
@@ -291,6 +290,7 @@ footer {
     .field:disabled,
     .btn:disabled {
       opacity: 0.8;
+      cursor: not-allowed;
     }
   }
 

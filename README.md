@@ -39,7 +39,7 @@ This was the project I had most fun so far. I really enjoyed building this.
 
 I couldn't access the site of the rel.ink api for some reason so I just used another api called rebrand.ly.
 
-And also I added node_modules and committed to stage by accident.
+And also I added node_modules to stage and committed by accident.
 
 ## My process
 
