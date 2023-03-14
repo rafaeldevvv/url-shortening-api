@@ -627,8 +627,8 @@ footer .socials a:hover img {
   }
   .card {
     font-size: 1.1em;
-    -webkit-padding-after: 1em;
-            padding-block-end: 1em;
+    -webkit-padding-after: 30px;
+            padding-block-end: 30px;
   }
   .card .icon {
     left: 4em;
