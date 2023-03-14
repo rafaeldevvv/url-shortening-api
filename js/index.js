@@ -5,57 +5,45 @@ function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableTo
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var useState = React.useState;
-function shortenUrl(_x) {
-  return _shortenUrl.apply(this, arguments);
-}
-function _shortenUrl() {
-  _shortenUrl = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(url) {
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
-        case 0:
-          return _context3.abrupt("return", new Promise(function (resolve, reject) {
-            var linkRequest = {
-              destination: url,
-              domain: {
-                fullName: "rebrand.ly"
-              }
-            };
-            var requestHeaders = {
-              "Content-Type": "application/json",
-              apikey: "08125f5fc16149a485908fe8c40c24bf"
-            };
-            fetch("https://api.rebrandly.com/v1/links", {
-              headers: requestHeaders,
-              method: "POST",
-              body: JSON.stringify(linkRequest)
-            }).then(function (response) {
-              return response.json();
-            }).then(function (data) {
-              if (data.httpCode >= 400) {
-                throw new Error(data.code);
-              }
-              resolve(completeUrl(data.shortUrl));
-            })["catch"](function (reason) {
-              reject(reason);
-            });
-          }));
-        case 1:
-        case "end":
-          return _context3.stop();
+function shortenUrl(url) {
+  return new Promise(function (resolve, reject) {
+    var linkRequest = {
+      destination: url,
+      domain: {
+        fullName: "rebrand.ly"
       }
-    }, _callee3);
-  }));
-  return _shortenUrl.apply(this, arguments);
+    };
+    var requestHeaders = {
+      "Content-Type": "application/json",
+      apikey: "08125f5fc16149a485908fe8c40c24bf"
+    };
+    fetch("https://api.rebrandly.com/v1/links", {
+      headers: requestHeaders,
+      method: "POST",
+      body: JSON.stringify(linkRequest)
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      if (data.httpCode >= 400) {
+        reject(new Error(data.message));
+      } else {
+        resolve(completeUrl(data.shortUrl));
+      }
+    })["catch"](reject);
+  });
+
+  // shortUrl - Property
 }
+
 function completeUrl(url) {
   return "https://" + url;
 }
@@ -88,8 +76,8 @@ function App() {
           case 7:
             _context.prev = 7;
             _context.t0 = _context["catch"](1);
-            alert(_context.t0);
             setIsSubmitting(false);
+            alert(_context.t0);
             return _context.abrupt("return");
           case 12:
             newLinks = [{
@@ -108,6 +96,13 @@ function App() {
     }));
     return _handleSubmit.apply(this, arguments);
   }
+  function handleRemove(linkId) {
+    var newLinks = links.filter(function (l) {
+      return l.id !== linkId;
+    });
+    localStorage.setItem("links", JSON.stringify(newLinks));
+    setLinks(newLinks);
+  }
   return /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
@@ -125,7 +120,8 @@ function App() {
       marginInline: "auto"
     }
   }))), /*#__PURE__*/React.createElement(ListOfLinks, {
-    links: links
+    links: links,
+    onRemove: handleRemove
   }));
 }
 function Form(_ref) {
@@ -169,7 +165,8 @@ function Form(_ref) {
   }, "Shorten It!"));
 }
 function ListOfLinks(_ref2) {
-  var links = _ref2.links;
+  var links = _ref2.links,
+    onRemove = _ref2.onRemove;
   var _useState9 = useState(3),
     _useState10 = _slicedToArray(_useState9, 2),
     numberOfLinks = _useState10[0],
@@ -182,7 +179,8 @@ function ListOfLinks(_ref2) {
     if (i >= numberOfLinks) return;
     return /*#__PURE__*/React.createElement(Link, {
       link: l,
-      key: l.id
+      key: l.id,
+      onRemove: onRemove
     });
   })), links.length > 0 && numberOfLinks < links.length && /*#__PURE__*/React.createElement("button", {
     className: "btn secondary-btn",
@@ -197,7 +195,8 @@ function ListOfLinks(_ref2) {
   }, "Show more"));
 }
 function Link(_ref3) {
-  var link = _ref3.link;
+  var link = _ref3.link,
+    onRemove = _ref3.onRemove;
   var _useState11 = useState(false),
     _useState12 = _slicedToArray(_useState11, 2),
     isCopied = _useState12[0],
@@ -236,9 +235,18 @@ function Link(_ref3) {
   }, /*#__PURE__*/React.createElement("a", {
     href: _short2,
     target: "_blank"
-  }, _short2), /*#__PURE__*/React.createElement("button", {
+  }, _short2), /*#__PURE__*/React.createElement("div", {
+    className: "buttons"
+  }, /*#__PURE__*/React.createElement("button", {
     className: "btn primary-btn ".concat(isCopied && "copied"),
     onClick: handleClick
-  }, isCopied ? "Copied!" : "Copy")));
+  }, isCopied ? "Copied!" : "Copy"), /*#__PURE__*/React.createElement("button", {
+    className: "remove-btn",
+    onClick: function onClick(e) {
+      onRemove(link.id);
+    }
+  }, /*#__PURE__*/React.createElement("i", {
+    className: "fa-solid fa-trash"
+  })))));
 }
 ReactDOM.createRoot(document.querySelector("#shorten")).render( /*#__PURE__*/React.createElement(App, null));

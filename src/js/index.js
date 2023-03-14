@@ -1,6 +1,6 @@
 const useState = React.useState;
 
-async function shortenUrl(url) {
+function shortenUrl(url) {
   return new Promise((resolve, reject) => {
     let linkRequest = {
       destination: url,
@@ -17,18 +17,17 @@ async function shortenUrl(url) {
       method: "POST",
       body: JSON.stringify(linkRequest),
     })
-    .then((response) => {
-      return response.json()
-    })
-    .then((data) => {
-      if (data.httpCode >= 400) {
-        throw new Error(data.code);
-      }
-      resolve(completeUrl(data.shortUrl));
-    })
-    .catch((reason) => {
-      reject(reason);
-    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data.httpCode >= 400) {
+          reject(new Error(data.message));
+        } else {
+          resolve(completeUrl(data.shortUrl));
+        }
+      })
+      .catch(reject);
   });
 
   // shortUrl - Property
@@ -50,8 +49,8 @@ function App() {
     try {
       short = await shortenUrl(url);
     } catch (err) {
-      alert(err);
       setIsSubmitting(false);
+      alert(err);
       return;
     }
 
@@ -60,6 +59,12 @@ function App() {
     localStorage.setItem("links", JSON.stringify(newLinks));
     setLinks(newLinks);
     setIsSubmitting(false);
+  }
+
+  function handleRemove(linkId) {
+    const newLinks = links.filter((l) => l.id !== linkId);
+    localStorage.setItem("links", JSON.stringify(newLinks));
+    setLinks(newLinks);
   }
 
   return (
@@ -73,7 +78,7 @@ function App() {
           </div>
         )}
       </div>
-      <ListOfLinks links={links} />
+      <ListOfLinks links={links} onRemove={handleRemove} />
     </div>
   );
 }
@@ -117,7 +122,7 @@ function Form({ onSubmit, disabled }) {
   );
 }
 
-function ListOfLinks({ links }) {
+function ListOfLinks({ links, onRemove }) {
   const [numberOfLinks, setNumberOfLinks] = useState(3);
 
   return (
@@ -125,7 +130,7 @@ function ListOfLinks({ links }) {
       <div className="list-of-links">
         {links.map((l, i) => {
           if (i >= numberOfLinks) return;
-          return <Link link={l} key={l.id} />;
+          return <Link link={l} key={l.id} onRemove={onRemove} />;
         })}
       </div>
 
@@ -148,7 +153,7 @@ function ListOfLinks({ links }) {
   );
 }
 
-function Link({ link }) {
+function Link({ link, onRemove }) {
   const [isCopied, setIsCopied] = useState(false);
 
   const { long, short } = link;
@@ -169,12 +174,22 @@ function Link({ link }) {
         <a href={short} target="_blank">
           {short}
         </a>
-        <button
-          className={`btn primary-btn ${isCopied && "copied"}`}
-          onClick={handleClick}
-        >
-          {isCopied ? "Copied!" : "Copy"}
-        </button>
+        <div className="buttons">
+          <button
+            className={`btn primary-btn ${isCopied && "copied"}`}
+            onClick={handleClick}
+          >
+            {isCopied ? "Copied!" : "Copy"}
+          </button>
+          <button
+            className="remove-btn"
+            onClick={(e) => {
+              onRemove(link.id);
+            }}
+          >
+            <i className="fa-solid fa-trash"></i>
+          </button>
+        </div>
       </div>
     </div>
   );
