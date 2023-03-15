@@ -160,9 +160,12 @@ function Link({ link, onRemove }) {
   const { long, short } = link;
 
   async function handleClick() {
-    console.log('started');
-    await navigator.clipboard.writeText(short);
-    console.log("done")
+    try {
+      await navigator.clipboard.writeText(short);
+    } catch(err) {
+      alert(err);
+      return;
+    }
     setIsCopied(true);
   }
 

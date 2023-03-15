@@ -212,17 +212,24 @@ function Link(_ref3) {
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
           case 0:
-            console.log('started');
+            _context2.prev = 0;
             _context2.next = 3;
             return navigator.clipboard.writeText(_short2);
           case 3:
-            console.log("done");
-            setIsCopied(true);
+            _context2.next = 9;
+            break;
           case 5:
+            _context2.prev = 5;
+            _context2.t0 = _context2["catch"](0);
+            alert(_context2.t0);
+            return _context2.abrupt("return");
+          case 9:
+            setIsCopied(true);
+          case 10:
           case "end":
             return _context2.stop();
         }
-      }, _callee2);
+      }, _callee2, null, [[0, 5]]);
     }));
     return _handleClick.apply(this, arguments);
   }
