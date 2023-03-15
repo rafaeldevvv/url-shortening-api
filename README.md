@@ -70,8 +70,21 @@ In this part I just put the script right below the nav, because as it was just a
 </script>
 ```
 
+Here I just reused the hamburguer icon from another project because it was easier than creating my own.
 ```scss
+#toggle-button {
+  outline: 0;
+  border: 0;
+  background: none;
 
+  width: 35px;
+  aspect-ratio: 1;
+
+  background-image: url("../images/icon-hamburger.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 140% 190%;
+}
 ```
 
 I was doing some tests and discovered that this api can return error codes in the body of the response. So I added two rejects: one for possible network failures and one for that kind of error.
