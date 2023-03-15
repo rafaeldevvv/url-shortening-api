@@ -179,6 +179,7 @@ function Link({ link, onRemove }) {
           <button
             className={`btn primary-btn ${isCopied ? "copied" : ""}`}
             onClick={handleClick}
+            style={{cursor: 'pointer'}}
           >
             {isCopied ? "Copied!" : "Copy"}
           </button>

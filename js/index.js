@@ -240,7 +240,10 @@ function Link(_ref3) {
     className: "buttons"
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn primary-btn ".concat(isCopied ? "copied" : ""),
-    onClick: handleClick
+    onClick: handleClick,
+    style: {
+      cursor: 'pointer'
+    }
   }, isCopied ? "Copied!" : "Copy"), /*#__PURE__*/React.createElement("button", {
     className: "remove-btn",
     onClick: function onClick(e) {
