@@ -241,6 +241,7 @@ function Link(_ref3) {
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn primary-btn ".concat(isCopied ? "copied" : ""),
     onClick: handleClick,
+    onTouchStart: handleClick,
     style: {
       cursor: 'pointer'
     }
