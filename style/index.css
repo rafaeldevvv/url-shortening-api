@@ -266,6 +266,7 @@ footer {
 }
 #shorten form .btn {
   font-size: 1em;
+  white-space: nowrap;
 }
 #shorten form .field:disabled,
 #shorten form .btn:disabled {
