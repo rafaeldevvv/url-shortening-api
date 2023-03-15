@@ -160,9 +160,9 @@ function Link({ link, onRemove }) {
   const { long, short } = link;
 
   async function handleClick() {
-    alert('started doing');
+    console.log('started');
     await navigator.clipboard.writeText(short);
-    alert("done")
+    console.log("done")
     setIsCopied(true);
   }
 
@@ -181,8 +181,6 @@ function Link({ link, onRemove }) {
           <button
             className={`btn primary-btn ${isCopied ? "copied" : ""}`}
             onClick={handleClick}
-            onTouchStart={handleClick}
-            style={{cursor: 'pointer'}}
           >
             {isCopied ? "Copied!" : "Copy"}
           </button>

@@ -212,11 +212,11 @@ function Link(_ref3) {
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
           case 0:
-            alert('started doing');
+            console.log('started');
             _context2.next = 3;
             return navigator.clipboard.writeText(_short2);
           case 3:
-            alert("done");
+            console.log("done");
             setIsCopied(true);
           case 5:
           case "end":
@@ -242,11 +242,7 @@ function Link(_ref3) {
     className: "buttons"
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn primary-btn ".concat(isCopied ? "copied" : ""),
-    onClick: handleClick,
-    onTouchStart: handleClick,
-    style: {
-      cursor: 'pointer'
-    }
+    onClick: handleClick
   }, isCopied ? "Copied!" : "Copy"), /*#__PURE__*/React.createElement("button", {
     className: "remove-btn",
     onClick: function onClick(e) {
